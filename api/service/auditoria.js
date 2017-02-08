@@ -1,10 +1,10 @@
-const proposito = require('../models/proposito')
+const Auditoria = require('../models/auditoria')
 const _ = require('lodash')
 
-proposito.methods(['get', 'post', 'put', 'delete'])
-proposito.updateOptions( { new: true, runValidators: true } )
+Auditoria.methods(['get', 'post', 'put', 'delete'])
+Auditoria.updateOptions( { new: true, runValidators: true } )
 
-proposito.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
+Auditoria.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
 
 function sendErrorsOrNext(req, res, next) {
   const bundle = res.locals.bundle
@@ -23,8 +23,8 @@ function parseErrors(nodeRestfulErrors) {
   return errors
 }
 
-proposito.route('count', function(req, res, next) {
-  proposito.count(function(error, value) {
+Auditoria.route('count', function(req, res, next) {
+  Auditoria.count(function(error, value) {
     if(error) {
       res.status(500).json( {errors: [error]} )
     } else {
@@ -33,4 +33,4 @@ proposito.route('count', function(req, res, next) {
   })
 })
 
-module.exports = proposito
+module.exports = Auditoria

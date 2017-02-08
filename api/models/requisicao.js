@@ -2,13 +2,13 @@ const restful = require('node-restful')
 const mongoose = restful.mongoose
 
 const Requisicao_Schema = new mongoose.Schema( {
-  co_empresaCliente: { type: String, required: true },
-  co_empresaMetricas: { type: String, required: true },
-  co_prospecto: { type: String, required: true },
   co_requisicao: { type: String, required: true },
+  id_empresaCliente: { type: String, required: true },
+  id_empresaMetricas: { type: String, required: true },
+  id_prospecto: { type: String, required: true },
   ic_tpRequisicao: { type: String, required: true },
-  co_usuarioSolicitante: { type: String, required: true },
-  co_usuarioResponsavel: { type: String, required: true },
+  id_usuarioSolicitante: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   contagensTradicional: [RequisicaoContagemTradicional_Schema],
   contagensAgil: [RequisicaoContagemAgil_Schema],
   apoios: [RequisicaoApoio_Schema],
@@ -25,38 +25,45 @@ const Requisicao_Schema = new mongoose.Schema( {
 
 const RequisicaoContagemTradicional_Schema = new mongoose.Schema ( {
   ic_proposito: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ds_contagem: { type: String }
 })
 
 const RequisicaoContagemAgil_Schema = new mongoose.Schema ( {
   ic_proposito: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ds_contagem: { type: String }
 })
 
 const RequisicaoApoio_Schema = new mongoose.Schema ( {
   ic_tpRequisicao: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ic_tipoApoio: { type: String, required: true },
   ds_apoio: { type: String }
 })
 
 const RequisicaoTreinamento_Schema = new mongoose.Schema ( {
   no_treinamento: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ds_treinamento: { type: String, required: true },
   qt_horasTreinamento: { type: String, required: true }
 })
 
 const RequisicaoBenchmarking_Schema = new mongoose.Schema ( {
+  id_usuarioResponsavel: { type: String, required: true },
   ic_tipoRelatorio: { type: String, required: true }
 })
 
 const RequisicaoContato_Schema = new mongoose.Schema ( {
   ds_necessidade: { type: String, required: true },
   ic_motivoContato: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ic_canalOrigem: { type: String, required: true }
 })
 
 const RequisicaoLancamento_Schema = new mongoose.Schema ( {
   id_empresaMetricas: { type: String, required: true },
+  id_usuarioResponsavel: { type: String, required: true },
   ic_tpLancamento: { type: String, required: true },
   dt_lancamento: { type: String, required: true },
   hh_inicio: { type: String, required: true },
