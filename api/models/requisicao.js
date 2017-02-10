@@ -3,66 +3,74 @@ const mongoose = restful.mongoose
 
 const Requisicao_Schema = new mongoose.Schema( {
   co_requisicao: { type: String, required: true },
+  id_prospecto: { type: String, required: true },
   id_empresaCliente: { type: String, required: true },
   id_empresaMetricas: { type: String, required: true },
-  id_prospecto: { type: String, required: true },
-  ic_tpRequisicao: { type: String, required: true },
   id_usuarioSolicitante: { type: String, required: true },
   id_usuarioResponsavel: { type: String, required: true },
-  contagensTradicional: [RequisicaoContagemTradicional_Schema],
-  contagensAgil: [RequisicaoContagemAgil_Schema],
-  apoios: [RequisicaoApoio_Schema],
-  treinamentos: [RequisicaoTreinamento_Schema],
-  benchmarkings: [RequisicaoBenchmarking_Schema],
-  contatos: [RequisicaoContato_Schema],
+  id_equipeEmpresaMetricas: { type: String, required: true },
+  contagensTradicional: [Requisicao_ContagemTradicional_Schema],
+  contagensAgil: [Requisicao_ContagemAgil_Schema],
+  apoios: [Requisicao_Apoio_Schema],
+  treinamentos: [Requisicao_Treinamento_Schema],
+  benchmarkings: [Requisicao_Benchmarking_Schema],
+  contatos: [Requisicao_Contato_Schema],
   dh_inicio: { type: String, required: true },
   dh_ultAtualizacao: { type: String, required: true },
   dh_fim: { type: String, required: true },
   ic_situacao: { type: String, required: true },
-  ds_laudo: { type: String }
-  lancamentos: [RequisicaoLancamento_Schema],
+  ds_parecer: { type: String },
+  lancamentos: [Requisicao_Lancamento_Schema]
 })
 
-const RequisicaoContagemTradicional_Schema = new mongoose.Schema ( {
+const Requisicao_ContagemTradicional_Schema = new mongoose.Schema ( {
   ic_proposito: { type: String, required: true },
   id_usuarioResponsavel: { type: String, required: true },
-  ds_contagem: { type: String }
+  ds_contagem: { type: String },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoContagemAgil_Schema = new mongoose.Schema ( {
+const Requisicao_ContagemAgil_Schema = new mongoose.Schema ( {
   ic_proposito: { type: String, required: true },
   id_usuarioResponsavel: { type: String, required: true },
-  ds_contagem: { type: String }
+  ds_contagem: { type: String },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoApoio_Schema = new mongoose.Schema ( {
-  ic_tpRequisicao: { type: String, required: true },
+const Requisicao_Apoio_Schema = new mongoose.Schema ( {
   id_usuarioResponsavel: { type: String, required: true },
   ic_tipoApoio: { type: String, required: true },
-  ds_apoio: { type: String }
+  ds_apoio: { type: String },
+  ds_retornoApoio: { type: String },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoTreinamento_Schema = new mongoose.Schema ( {
+const Requisicao_Treinamento_Schema = new mongoose.Schema ( {
   no_treinamento: { type: String, required: true },
   id_usuarioResponsavel: { type: String, required: true },
   ds_treinamento: { type: String, required: true },
-  qt_horasTreinamento: { type: String, required: true }
+  qt_horasTreinamento: { type: String, required: true },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoBenchmarking_Schema = new mongoose.Schema ( {
+const Requisicao_Benchmarking_Schema = new mongoose.Schema ( {
   id_usuarioResponsavel: { type: String, required: true },
-  ic_tipoRelatorio: { type: String, required: true }
+  ic_tipoRelatorio: { type: String, required: true },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoContato_Schema = new mongoose.Schema ( {
+const Requisicao_Contato_Schema = new mongoose.Schema ( {
   ds_necessidade: { type: String, required: true },
   ic_motivoContato: { type: String, required: true },
   id_usuarioResponsavel: { type: String, required: true },
-  ic_canalOrigem: { type: String, required: true }
+  ic_canalOrigem: { type: String, required: true },
+  ds_retornoContato: { type: String },
+  url_documentacao: { type: String }
 })
 
-const RequisicaoLancamento_Schema = new mongoose.Schema ( {
+const Requisicao_Lancamento_Schema = new mongoose.Schema ( {
   id_empresaMetricas: { type: String, required: true },
+  id_equipeEmpresaMetricas: { type: String },
   id_usuarioResponsavel: { type: String, required: true },
   ic_tpLancamento: { type: String, required: true },
   dt_lancamento: { type: String, required: true },
@@ -71,32 +79,4 @@ const RequisicaoLancamento_Schema = new mongoose.Schema ( {
   id_usuario: { type: String, required: true }
 })
 
-
-
-const RequisicaoEpico_Schema = new mongoose.Schema( {
-  co_epico: { type: String, required: true },
-  no_epico: { type: String, required: true },
-  mvps: [mvpSchema],
-  ic_situacao: { type: String, required: true }
-})
-
-const RequisicaoMvp_Schema = new mongoose.Schema( {
-  nu_mvp: { type: Numeric, min: 1, max: 99, required: true },
-  sprints: [sprintSchema],
-  ic_situacao: { type: String, required: true }
-})
-
-const RequisicaoSprint_Schema = new mongoose.Schema( {
-  nu_sprint: { type: Numeric, min: 1, max: 99, required: true },
-  dias: [diaSchema],
-  ic_situacao: { type: String, required: true }
-})
-
-const RequisicaoDiaSchema = new mongoose.Schema( {
-  dt_registro: { type: String, required: true },
-  qt_pfToDo: { type: String, required: true },
-  qt_pfDoing: { type: String, required: true },
-  qt_pfDone: { type: String, required: true }
-})
-
-module.exports = restful.model('requisicao', requisicaoSchema)
+module.exports = restful.model('Requisicao', Requisicao_Schema)
