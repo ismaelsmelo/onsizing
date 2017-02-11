@@ -7,11 +7,14 @@ const Usuario_Schema = new mongoose.Schema( {
   ps_senha: { type: String, required: [ true, 'Informe a senha do usuário.' ] },
   nu_cpf: { type: String },
   privilegios: [ type: String ],
-  ic_ativo: { type: String, required: true, enum: ['S', 'N'] }
+  ic_ativo: { type: String, required: true, enum: ['S', 'N'] },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
-const Usuario_Privilegio_Schema = new mongoose.Schema( {
-//ver como se dará acesso por empresa e geral
+const Usuario_Privilegio_Schema = new mongoose.Schema( { //ver como se dará acesso por empresa e geral
+  ic_perfil: { type: String },
+  id_empresa: { type: String }
 })
 
 module.exports = restful.model('Usuario', Usuario_Schema)

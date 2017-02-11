@@ -14,4 +14,9 @@ module.exports = function(server) {
   //Rotas da APT: Rota de 'Projeto'
   const auditoria = require('../api/service/auditoria')
   auditoria.register(router, '/auditoria')
+
+  const usuario = require('../api/service/usuario')
+  auditoria.register(router, '/usuario')
+
+  
 }

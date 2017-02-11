@@ -15,12 +15,14 @@ const Requisicao_Schema = new mongoose.Schema( {
   treinamentos: [Requisicao_Treinamento_Schema],
   benchmarkings: [Requisicao_Benchmarking_Schema],
   contatos: [Requisicao_Contato_Schema],
-  dh_inicio: { type: String, required: true },
-  dh_ultAtualizacao: { type: String, required: true },
-  dh_fim: { type: String, required: true },
+  dh_inicio: { type: Date, required: true },
+  dh_ultAtualizacao: { type: Date, required: true },
+  dh_fim: { type: Date, required: true },
   ic_situacao: { type: String, required: true },
   ds_parecer: { type: String },
-  lancamentos: [Requisicao_Lancamento_Schema]
+  lancamentos: [Requisicao_Lancamento_Schema],
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const Requisicao_ContagemTradicional_Schema = new mongoose.Schema ( {
@@ -73,7 +75,7 @@ const Requisicao_Lancamento_Schema = new mongoose.Schema ( {
   id_equipeEmpresaMetricas: { type: String },
   id_usuarioResponsavel: { type: String, required: true },
   ic_tpLancamento: { type: String, required: true },
-  dt_lancamento: { type: String, required: true },
+  dt_lancamento: { type: Date, required: true },
   hh_inicio: { type: String, required: true },
   hh_fim: { type: String, required: true },
   id_usuario: { type: String, required: true }

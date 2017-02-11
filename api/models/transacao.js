@@ -10,8 +10,7 @@ const Transacao_Schema = new mongoose.Schema( {
   ic_operacao: { type: String }, //Debito/Crédito
   ic_tpTransacao: { type: String }, //ex. relatório benchmarking...
   vr_transacao: { type: String },
-  dt_transacao: { type: String },
-  hh_transacao: { type: String },
+  dh_transacao: { type: Date },
   ds_transacao: { type: String, required: [ true, 'Informe a descrição da transação.' ] }
 })
 

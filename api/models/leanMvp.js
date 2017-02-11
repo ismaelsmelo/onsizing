@@ -10,26 +10,34 @@ const LeanMvpEpico_Schema = new mongoose.Schema( {
   dh_ultimaAlteracao: { type: String, required: true },
   dt_inicioVigencia: { type: String, required: true },
   dt_fimVigencia:  { type: String, required: true },
-  ic_situacao: { type: String, required: true }
+  ic_situacao: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const LeanMvp_Epico_MVP_Schema = new mongoose.Schema( {
   nu_mvp: { type: Numeric, min: 1, max: 99, required: true },
   sprints: [LeanMvp_Epico_Sprint_Schema],
-  ic_situacao: { type: String, required: true }
+  ic_situacao: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const LeanMvp_Epico_Sprint_Schema = new mongoose.Schema( {
   nu_sprint: { type: Numeric, min: 1, max: 99, required: true },
   dias: [LeanMvp_Epico_Dia_Schema],
-  ic_situacao: { type: String, required: true }
+  ic_situacao: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const LeanMvp_Epico_Dia_Schema = new mongoose.Schema( {
   dt_registro: { type: String, required: true },
   qt_pfToDo: { type: String, required: true },
   qt_pfDoing: { type: String, required: true },
-  qt_pfDone: { type: String, required: true }
+  qt_pfDone: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 module.exports = restful.model('Epico', Epico_Schema)

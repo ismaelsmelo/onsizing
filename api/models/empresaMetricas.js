@@ -8,7 +8,9 @@ const EmpresaMetricas_Schema = new mongoose.Schema( {
   equipes: [EmpresaMetricas_Equipe_Schema],
   ic_parametroLancarHoras: { type: String }, //empresa de metricas faz seu controle de horas na plataforma
   ic_lancamentoHorasAberto: { type: String }, //empresa cliente também pode ver os lançamentos
-  ds_observacoes: { type: String }
+  ds_observacoes: { type: String },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const EmpresaMetricas_Equipe_Schema = new mongoose.Schema( {
@@ -16,14 +18,18 @@ const EmpresaMetricas_Equipe_Schema = new mongoose.Schema( {
   no_emailEquipe: { type: String },
   especialistas: [EmpresaMetricas_Especialista_Schema],
   ic_equipePadrao: { type: String },
-  ic_situacao: { type: String, required: true }
+  ic_situacao: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 const EmpresaMetricas_Especialista_Schema = new mongoose.Schema( {
   no_especialista: { type: String, required: [ true, 'Informe o nome do especialista.' ] },
   ds_titulos: { type: String, required: true },
   co_usuario: { type: String, required: true },
-  ic_situacao: { type: String, required: true }
+  ic_situacao: { type: String, required: true },
+  dt_cadastro: { type: Date },
+  dt_atualizacao: { type: Date, default: Date.now }
 })
 
 module.exports = restful.model('EmpresaMetricas', EmpresaMetricas_Schema)
