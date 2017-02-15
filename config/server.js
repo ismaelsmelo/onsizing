@@ -1,4 +1,4 @@
-const port = 8080
+const port = 3000
 
 const bodyParser = require('body-parser')
 const express = require('express')
