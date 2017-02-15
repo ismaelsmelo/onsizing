@@ -1,7 +1,7 @@
 const restful = require('node-restful')
 const mongoose = restful.mongoose
 
-const Auditoria_Schema = new mongoose.Schema( {
+const auditoriaSchema = new mongoose.Schema( {
   id_usuario: { type: String, required: [ true, 'Informe o código do usuário.' ] }, //id do usuário logado
   dh_acesso: { type: Date }, //data e hora do acesso
   id_funcionalidade: { type: String }, //funcionalidade da contagem
@@ -11,6 +11,6 @@ const Auditoria_Schema = new mongoose.Schema( {
   ds_imagemDepois: { type: String } //caso necessário, informar
 })
 
-module.exports = restful.model('Auditoria', Auditoria_Schema)
+module.exports = restful.model('Auditoria', auditoriaSchema)
 
 //também será gravado log de consultas
