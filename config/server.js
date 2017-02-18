@@ -7,6 +7,7 @@ const server = express()
 server.use(bodyParser.urlencoded({ extended: true }))
 server.use(bodyParser.json())
 
+//Ouve uma porta específica p/ estabelecer a conexão
 server.listen(port, function() {
   console.log('Backend está rodando na porta ${port}.')
 })

@@ -1,12 +1,12 @@
-const LeanMVP = require('../models/leanMVP')
+const TipoAplicacao = require('../models/tipoAplicacao')
 const _ = require('lodash')
 
 //permitir consultar, incluir, alterar e excluir
-LeanMVP.methods(['get', 'post', 'put', 'delete'])
+TipoAplicacao.methods(['get', 'post', 'put', 'delete'])
 
 //sempre que dar update retornará o objeto novo e não o objeto antigo / e fazer validações também ao fazer update
-LeanMVP.updateOptions( { new: true, runValidators: true } )
-LeanMVP.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
+TipoAplicacao.updateOptions( { new: true, runValidators: true } )
+TipoAplicacao.after('post', sendErrorsOrNext).after('put', sendErrorsOrNext)
 
 function sendErrorsOrNext(req, res, next) {
   const bundle = res.locals.bundle
@@ -25,9 +25,9 @@ function parseErrors(nodeRestfulErrors) {
   return errors
 }
 
-LeanMVP.route('count', function(req, res, next) {
+TipoAplicacao.route('count', function(req, res, next) {
   //verifica retorno do DB de quantas registros temos cadastrados (e se houve erros, colocaremo-os num array, senão retorna resposta)
-  LeanMVP.count(function(error, value) {
+  TipoAplicacao.count(function(error, value) {
     if(error) {
       res.status(500).json( {errors: [error]} )
     } else {
@@ -36,6 +36,4 @@ LeanMVP.route('count', function(req, res, next) {
   })
 })
 
-//------------------------------------------------------------------------------
-
-module.exports = LeanMVP
+module.exports = TipoAplicacao
