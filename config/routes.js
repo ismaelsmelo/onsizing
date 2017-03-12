@@ -5,6 +5,9 @@ module.exports = function(server) {
   //Mapeando a API routes
   const router = express.Router()
   server.use('/api', router)
+  //Rota da APT: Rota de 'Auditoria'
+  const aplicacao = require('../api/service/aplicacao')
+  aplicacao.register(router, '/aplicacao')
 
   //Rota da APT: Rota de 'Auditoria'
   const auditoria = require('../api/service/auditoria')
@@ -54,6 +57,18 @@ module.exports = function(server) {
   const lancamento = require('../api/service/lancamento')
   lancamento.register(router, '/lancamento')
 
+  //Rota da APT: Rota de 'Modelo de Métricas'
+  const modeloMetricas = require('../api/service/modeloMetricas')
+  modeloMetricas.register(router, '/modeloMetricas')
+
+  //Rota da APT: Rota de 'Município'
+  const municipio = require('../api/service/municipio')
+  municipio.register(router, '/municipio')
+
+  //Rota da APT: Rota de 'Operação'
+  const operacao = require('../api/service/operacao')
+  operacao.register(router, '/operacao')
+
   //Rota da APT: Rota de 'Plataforma'
   const plataforma = require('../api/service/plataforma')
   plataforma.register(router, '/plataforma')
@@ -69,6 +84,18 @@ module.exports = function(server) {
   //Rota da APT: Rota de 'Requisição'
   const requisicao = require('../api/service/requisicao')
   requisicao.register(router, '/requisicao')
+
+  //Rota da APT: Setor da Economia'
+  const setorEconomia = require('../api/service/setorEconomia')
+  setorEconomia.register(router, '/setorEconomia')
+
+  //Rota da APT: Tecnologia'
+  const tecnologia = require('../api/service/tecnologia')
+  tecnologia.register(router, '/tecnologia')
+
+  //Rota da APT: Rota de 'Time'
+  const time = require('../api/service/time')
+  time.register(router, '/time')
 
   //Rota da APT: Rota de 'Tipo Aplicação'
   const tipoAplicacao = require('../api/service/tipoAplicacao')

@@ -1,8 +1,9 @@
 const restful = require('node-restful')
 const mongoose = restful.mongoose
 
-//Informações de contagem no modelo tradicional de desenvolvimento
+//REQUISIÇÃO DE CONTAGEM
 const reqContagemSchema = new mongoose.Schema ( {
+  //--Dados básicos
   ic_proposito: { type: String, required: true }, //Tipo de propósito da contagem
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
   id_metDev: { type: String }, //Método de desenvolvimwento
@@ -13,21 +14,24 @@ const reqContagemSchema = new mongoose.Schema ( {
   ic_situacao: { type: String, required: true }, //Situação da contagem
   tc_observacoes: { type: String }, //Observações sobre a contagem
   tx_documentacao: { type: String }, //URL ou outra referência p/ a documentação relacionada
-  dt_cadastro: { type: Date }, //Data do cadastro do bloco de trabalho
-  dt_atualizacao: { type: Date, default: Date.now } //Data da última atualização do cadastro do bloco de trabalho
+  ic_passivelEstudo: { type: Boolean, required: true },
+  //--Trilha
+  dt_cadastro: { type: Date, default: Date.now } //Data da última atualização do cadastro do bloco de trabalho
 })
 
-//Informações de apoios realizados
+//REQUISIÇÃO DE APOIO
 const reqApoioSchema = new mongoose.Schema ( {
+  //--Dados básicos
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
-  ic_tipoApoio: { type: String, required: true }, //Tipo de apoio realizado
+  ic_tipoApoio: { type: String, required: true, enum: ['Apoio (pontual)', 'Suporte avançado (consultoria)'] }, //Tipo de apoio realizado
   tx_apoio: { type: String }, //Descrição do apoio
   tx_retornoApoio: { type: String }, //Retorno para o apoio ou resposta à requisição
   tx_documentacao: { type: String } //URL ou outra referência p/ a documentação relacionada
 })
 
-//Informações de treinamentos realizados
+//REQUISIÇÃO DE TREINAMENTO
 const reqTreinamentoSchema = new mongoose.Schema ( {
+  //--Dados básicos
   no_treinamento: { type: String, required: true }, //Nome do treinamento
   ds_treinamento: { type: String, required: true }, //Descrição do treinamento
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
@@ -35,59 +39,67 @@ const reqTreinamentoSchema = new mongoose.Schema ( {
   tx_documentacao: { type: String } //URL ou outra referência p/ a documentação relacionada
 })
 
-//Informações de relatórios, boletins ou parecer de becnhmarking
+//REQUISIÇÃO DE RELATÓRIO
 const reqBenchmarkingSchema = new mongoose.Schema ( {
-  ic_tipoRelatorio: { type: String, required: true }, //Tipo de relatório
+  //--Dados básicos
+  ic_tipoRelatorio: { type: String, required: true, enum: ['Relatório de Benchmarking', 'Boletim de Métricas'] }, //Tipo de relatório
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
   tx_documentacao: { type: String } //URL ou outra referência p/ a documentação relacionada
 })
 
-//Informações de requisições de contato (registrados via site, por exemplo)
+//REQUISIÇÃO DE CONTATO (registrados via site, por exemplo)
 const reqContatoSchema = new mongoose.Schema ( {
+  //--Dados básicos
   ic_motivoContato: { type: String, required: true }, //Motivo do contato
-  ic_canalOrigem: { type: String, required: true }, //Tipo de canal de origem da requisição
+  ic_canalOrigem: { type: String, required: true, enum: ['Institucional (site)', 'Base de Conhecimento', 'Plataforma OS'] }, //Tipo de canal de origem da requisição
   tx_necessidade: { type: String, required: true }, //Descrição da necessidade
   tx_retornoContato: { type: String }, //Descrição do retorno do contato
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
   tx_documentacao: { type: String } //URL ou outra referência p/ a documentação relacionada
 })
 
-//Informações sobre lançamento de horas das membros da equipe
+//LANÇAMENTO DE HORAS DE MEMBRO DE EQUIPE
 const lancamentoSchema = new mongoose.Schema ( {
-  id_empresaMetricas: { type: mongoose.Schema.ObjectId, ref: 'empresaMetricas', required: true }, //ID da empresa de métricas
-  id_equipeEmpresaMetricas: { type: String },  //ID da equipe da empresa de métricas
+  //--Dados básicos
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
   ic_tpLancamento: { type: String, required: true }, //Tipo de lançamento
   dt_lancamento: { type: Date, required: true }, //Data do lançamento
   hh_inicio: { type: String, required: true }, //Horário inicial
   hh_fim: { type: String, required: true }, //Horário final
   id_usuario: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário que criou o registro
+  //--Trilha
   id_usuarioAlterou: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário que alterou o registro
   dh_alteracao: { type: Date } //Data de alteração do lançamento
 })
 
-//Informações gerais da requisição
+//REQUISIÇÃO
 const requisicaoSchema = new mongoose.Schema( {
+  //--Contexto
+  id_operacao: { type: mongoose.Schema.ObjectId, ref: 'operacao', required: true }, //ID da operação
+  //--Dados básicos
   co_requisicao: { type: String, required: true }, //Código da requisição
   id_prospecto: { type: mongoose.Schema.ObjectId, ref: 'prospecto', required: true }, //ID do prospecto
-  id_empresaCliente: { type: mongoose.Schema.ObjectId, ref: 'empresaCliente', required: true }, //ID da empresa cliente
-  id_empresaMetricas: { type: mongoose.Schema.ObjectId, ref: 'empresaMetricas', required: true }, //ID da empresa de métricas
   id_usuarioSolicitante: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário solicitante
   id_usuarioResponsavel: { type: mongoose.Schema.ObjectId, ref: 'usuario', required: true }, //ID do usuário responsável
-  id_equipeEmpresaMetricas: { type: mongoose.Schema.ObjectId, ref: 'empresaMetricas', required: true, required: true  }, //ID da equipe da empresa de métricas
+  //--Atendimentos
   contagens: [ reqContagemSchema ], //contagens no modelo ágil ou similares
   apoios: [ reqApoioSchema ], //requisições de apoio
   treinamentos: [ reqTreinamentoSchema ], //requisições de treinamentos
   benchmarkings: [ reqBenchmarkingSchema ], //requisições que envolvem benchmarking
   contatos: [ reqContatoSchema ], //requisições de contato
+  //--Vigência
   dh_abertura: { type: Date, required: true }, //Data e hora da abertura da requisição
   dh_primeiroAtendimento: { type: Date }, //Data e hora do primeiro atendimento
   dh_conclusao: { type: Date }, //Data e hora da conclusão do atendimento
   dh_fechamento: { type: Date }, //Data e hora do fechamento do atendimento
   dh_fim: { type: Date, required: true }, //Data fim do atendimento
   ic_situacao: { type: String, required: true }, //Situação da requisição
+  ic_ativo: { type: Boolean }, //Situação
+  //--Parecer
   tx_parecer: { type: String }, //Descrição do parecer
+  //--Lançamentos
   lancamentos: [ lancamentoSchema ], //Relação de lançamentos da requisição
+  //--Trilha
   dt_atualizacao: { type: Date, default: Date.now }, //Data da última atualização
   id_usuarioAlterou: { type: mongoose.Schema.ObjectId, ref: 'usuario' } //ID do último usuário que alterou
 })
