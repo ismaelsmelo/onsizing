@@ -14,7 +14,7 @@ const plataformaSchema = new mongoose.Schema( {
   id_empresaCliente: { type: mongoose.Schema.ObjectId, ref: 'empresaCliente' },
   no_plataforma: { type: String, required: true }, //Nome da plataforma
   tecnologias: [ tecnologiaVinculadaSchema ], //Tecnologias que formam a plataforma
-  ic_arquitetura: { type: String, enum: ['Web', 'Client/Server', 'SOA', 'Mainframe', 'Outra' ] },
+  ic_arquitetura: { type: String, required: true },
   ic_ativo: { type: Boolean, required: true }, //Situação do cadastro de plataforma
   //--Trilha
   dt_cadastro: { type: Date, default: Date.now } //Data do cadastro da plataforma

@@ -4,9 +4,9 @@ const mongoose = restful.mongoose
 //MUNICÍPIO
 const municipioSchema = new mongoose.Schema( {
   //--Dados básicos
-  no_municipio: { type: String }, //Nome do município
-  sg_uf: { type: String }, //Sigla UF
-  no_pais: { type: String }, //Nome do país
+  no_municipio: { type: String, required: true }, //Nome do município
+  sg_uf: { type: String, required: true }, //Sigla UF
+  no_pais: { type: String, required: true }, //Nome do país
   ic_ativo: { type: Boolean }, //Situação do município
   //--Trilha
   dt_cadastro: { type: Date, default: Date.now } //Data do cadastro do município
